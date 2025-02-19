@@ -9,6 +9,13 @@ vector<double> GaussSeidel::solve(const vector<vector<double>>& A, const vector<
 	
 	vector<double> x_ant(n, 0);
 	vector<double> x(n, 0);
+	vector<double> multiplicadores(n, 1);
+
+	// Inicializando o vetor x^(0) com bi/aii
+	for (int i = 0; i < n; ++i) {
+        x[i] = b[i] / A[i][i];
+    }
+
 	int iter = 0;
 
 	do {
@@ -25,6 +32,7 @@ vector<double> GaussSeidel::solve(const vector<vector<double>>& A, const vector<
 				}
 			}
 			x[i] = (b[i] - soma) / A[i][i];
+			x_ant[i] = x[i];
 		}
 
 		// Calcular drk

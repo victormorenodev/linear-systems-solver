@@ -28,6 +28,13 @@ int main() {
     cout << "\nDigite a precisão (epsilon): ";
     cin >> epsilon;
 
+    GaussSeidel gaussSeidel(20, epsilon);
+    if (gaussSeidel.certainlyConverges(A, n)) {
+        cout << "\nA matriz A recebida passou nos critérios de convergência. Ela com certeza irá convergir!" << endl;
+    } else {
+        cout << "\nALERTA: A matriz A recebida NÃO passou nos critérios de convergência. Ela PODE não convergir!" << endl;
+    }
+
     // Inicializando o vetor x^(0) com bi/aii
     for (int i = 0; i < n; ++i) {
         x[i] = b[i] / A[i][i];
@@ -39,7 +46,6 @@ int main() {
         cout << "x" << (i + 1) << "^(0) = " << x[i] << endl;
     }
 
-    GaussSeidel gaussSeidel(20, epsilon);
     // Resolvendo usando Gauss-Seidel
     vector<double> d = gaussSeidel.solve(A, b, n);
 

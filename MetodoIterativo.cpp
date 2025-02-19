@@ -3,6 +3,47 @@
 MetodoIterativo::MetodoIterativo(int maxIter, double epsilon) : 
 	maxIter(maxIter), epsilon(epsilon) {}
 
+bool MetodoIterativo::lineCriterion(const vector<vector<double>>& A, int n)
+{
+	double soma;
+	for (int i = 0; i < n; ++i) {
+		soma = 0;
+		for (int j = 0; j < n; ++j) {
+			if (A[i][j] != A[i][i]) {
+				soma += A[i][j];
+			}
+		}
+		if (soma >= A[i][i]) {
+			return false;
+		}
+	}
+	return true;
+}
+
+bool MetodoIterativo::sassenfeldCriterion(const vector<vector<double>>& A, int n)
+{
+	double soma;
+	vector<double> multiplicadores(n, 1);
+	for (int i = 0; i < n; ++i) {
+		soma = 0;
+		for (int j = 0; j < n; ++j) {
+			if (A[i][j] != A[i][i]) {
+				soma += abs(A[i][j])*multiplicadores[j];
+			}
+		}
+		if ((soma/abs(A[i][i])) >= 1) {
+			return false;
+		}
+		multiplicadores[i] = soma;
+	}
+	return true;
+}
+
+bool MetodoIterativo::certainlyConverges(const vector<vector<double>>& A, int n)
+{
+	return (lineCriterion(A, n) || sassenfeldCriterion(A, n));
+}
+
 double MetodoIterativo::drk(const vector<double>& x, const vector<double>& x_ant, int n) 
 {
 	double dk_max = 0;

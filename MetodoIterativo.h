@@ -8,6 +8,10 @@
 using namespace std;
 
 class MetodoIterativo {
+	bool lineCriterion(const vector<vector<double>>& A, int n);
+	bool sassenfeldCriterion(const vector<vector<double>>& A, int n);
+private:
+
 protected:
 	int maxIter;
 	double epsilon;
@@ -18,6 +22,8 @@ protected:
 	// Função que retorna se já convergiu
 	bool canStop(double drk, int iterAtual);
 public:
+	// Função que verifica a convergência suficiente para a matriz A utilizando critério de linhas e Sassefend
+	bool certainlyConverges(const vector<vector<double>>& A, int n);
 	
 	// Construtor
 	MetodoIterativo(int maxIter, double epsilon);

@@ -28,11 +28,15 @@ vector<double> GaussSeidel::solve(const vector<vector<double>>& A, const vector<
 			double soma = 0;
 			for (int j = 0; j < n; ++j) {
 				if (i != j) {
-					soma += A[i][j] * x_ant[j];
+					if (i > 0 && j < i) {
+						soma += A[i][j] * multiplicadores[j];
+					} else {
+						soma += A[i][j] * x_ant[j];
+					}
 				}
 			}
 			x[i] = (b[i] - soma) / A[i][i];
-			x_ant[i] = x[i];
+			multiplicadores[i] = x[i];
 		}
 
 		// Calcular drk

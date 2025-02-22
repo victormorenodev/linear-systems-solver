@@ -9,7 +9,7 @@ bool MetodoIterativo::lineCriterion(const vector<vector<double>>& A, int n)
 	for (int i = 0; i < n; ++i) {
 		soma = 0;
 		for (int j = 0; j < n; ++j) {
-			if (A[i][j] != A[i][i]) {
+			if (j != i) {
 				soma += A[i][j];
 			}
 		}
@@ -27,7 +27,7 @@ bool MetodoIterativo::sassenfeldCriterion(const vector<vector<double>>& A, int n
 	for (int i = 0; i < n; ++i) {
 		soma = 0;
 		for (int j = 0; j < n; ++j) {
-			if (A[i][j] != A[i][i]) {
+			if (j != i) {
 				soma += abs(A[i][j])*multiplicadores[j];
 			}
 		}

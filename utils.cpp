@@ -1,5 +1,7 @@
 #include "utils.h"
+#include <iostream>
 
+using namespace std;
 vector<double> utils::multMatriz(
     vector<vector<double>>& A, 
     vector<double>& B)
@@ -28,4 +30,22 @@ vector<vector<double>> utils::identidade(int n){
     }
     
     return resultado;
+}
+
+void utils::printMatriz(const vector<vector<double>>& matriz, const string& name){
+    cout << "\nMatriz " << name << ":\n";
+    for (const auto& row : matriz) {
+        for (double val : row) {
+            cout << val << "\t";
+        }
+        cout << endl;
+    }
+}
+
+void utils::printMatrizColuna(const vector<double>& matriz, const string& name){
+    cout << "\nMatriz " << name << ":\n";
+    for (const auto& val : matriz) {
+        cout << val << "\t";
+    }
+    cout << endl;
 }

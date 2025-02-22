@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include "GaussSeidel.h"
 #include "GaussJacobi.h"
 #include "MetodoIterativo.h"
@@ -66,16 +67,11 @@ int main() {
     //por fim, multiplicando as inversas por b, para obter d
     vector<double> dJacobi = utils::multMatriz(inversaJacobi, b);
     vector<double> dSeidel = utils::multMatriz(inversaSeidel, b);
-    cout << "Jacobi:" << endl;
 
-    for (int i = 0; i < n; i++)
-    {
-        cout << dJacobi[i] << " ";
-    }
-
-    cout << endl << "Seidel:" << endl;
-    for (int i = 0; i < n; i++)
-    {
-        cout << dSeidel[i] << " ";
-    }
+    utils::printMatriz(A, "A");
+    utils::printMatrizColuna(b, "B");
+    utils::printMatriz(inversaJacobi, "Inversa Jacobi");
+    utils::printMatriz(inversaSeidel, "Inversa Seidel");
+    utils::printMatrizColuna(dJacobi, "d Jacobi");
+    utils::printMatrizColuna(dSeidel, "d Seidel");
 }

@@ -8,8 +8,8 @@
 using namespace std;
 
 class MetodoIterativo {
-	bool lineCriterion(const vector<vector<double>>& A, int n);
-	bool sassenfeldCriterion(const vector<vector<double>>& A, int n);
+	static bool lineCriterion(const vector<vector<double>>& A, int n);
+	static bool sassenfeldCriterion(const vector<vector<double>>& A, int n);
 private:
 
 protected:

@@ -1,7 +1,12 @@
 #include <iostream>
 #include "GaussSeidel.h"
+#include "GaussJacobi.h"
+#include "MetodoIterativo.h"
+#include "utils.h"
+#define MAX_ITER 20
 
 int main() {
+
     int n;
     cout << "Digite o tamanho da matriz A (n): ";
     cin >> n;
@@ -28,41 +33,49 @@ int main() {
     cout << "\nDigite a precisão (epsilon): ";
     cin >> epsilon;
 
-    GaussSeidel gaussSeidel(20, epsilon);
-    if (gaussSeidel.certainlyConverges(A, n)) {
-        cout << "\nA matriz A recebida passou nos critérios de convergência. Ela com certeza irá convergir!" << endl;
-    } else {
-        cout << "\nALERTA: A matriz A recebida NÃO passou nos critérios de convergência. Ela PODE não convergir!" << endl;
-    }
-
-    // Inicializando o vetor x^(0) com bi/aii
-    for (int i = 0; i < n; ++i) {
-        x[i] = b[i] / A[i][i];
-    }
-
-    // Exibindo x^(0)
-    cout << "\n...Iniciando método de Gauss-Seidel para Ad = b...\n\nValor inicial de x^(0):" << endl;
-    for (int i = 0; i < n; ++i) {
-        cout << "x" << (i + 1) << "^(0) = " << x[i] << endl;
-    }
-
-    // Resolvendo usando Gauss-Seidel
-    vector<double> d = gaussSeidel.solve(A, b, n);
-
-    // Resultados de gaussJacobi
-    cout << "\nResultado do sistema Ad = b:" << endl;
-    for (int i = 0; i < n; ++i) {
-        cout << "d" << (i + 1) << " = " << d[i];
-
-        // Alerta se o valor de d_i for > 0.4
-        if (d[i] > 0.4) {
-            cout << " (ALERTA: Deslocamento > 0.4)";
-        }  else if ((0.4 - d[i]  > 0.99) && ( d[i] > 0 )) {
-            cout << " (ATENÇÃO: Deslocamento próximo de 0.4)";
-        }
-
-        cout << endl;
-    }
+    //criando a matriz identidade
+    vector<vector<double>> identidade = utils::identidade(n);
     
-    return 0;
+    //criando os objetos dos métodos
+    GaussJacobi gaussJacobi(MAX_ITER, epsilon);
+    GaussSeidel gaussSeidel(MAX_ITER, epsilon);
+
+    if (MetodoIterativo::certainlyConverges(A, n))
+    {
+      cout << "A matriz A não passou nos critérios de convergência, ela PODE não convergir" << endl;  
+    }
+
+    //criando as matrizes que serão as inversas
+    vector<vector<double>> inversaJacobi(n, vector<double>(n));
+    vector<vector<double>> inversaSeidel(n, vector<double>(n));
+
+    for (int i = 0; i < n; i++)
+    {
+        //calculando a matriz inversa coluna por coluna
+        vector<double> colunaInversaJacobi = gaussJacobi.solve(A, identidade[i], n);
+        vector<double> colunaInversaSeidel = gaussSeidel.solve(A, identidade[i], n);
+
+        for (int j = 0; j < n; j++)
+        {
+            //preenchendo as matrizes inversas por coluna
+            inversaJacobi[j][i] = colunaInversaJacobi[j];
+            inversaSeidel[j][i] = colunaInversaSeidel[j];
+        }
+    }
+
+    //por fim, multiplicando as inversas por b, para obter d
+    vector<double> dJacobi = utils::multMatriz(inversaJacobi, b);
+    vector<double> dSeidel = utils::multMatriz(inversaSeidel, b);
+    cout << "Jacobi:" << endl;
+
+    for (int i = 0; i < n; i++)
+    {
+        cout << dJacobi[i] << " ";
+    }
+
+    cout << endl << "Seidel:" << endl;
+    for (int i = 0; i < n; i++)
+    {
+        cout << dSeidel[i] << " ";
+    }
 }

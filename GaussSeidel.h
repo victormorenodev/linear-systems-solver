@@ -1,5 +1,5 @@
-#ifndef GAUSS_JACOBI_H
-#define GAUSS_JACOBI_H
+#ifndef GAUSS_SEIDEL_H
+#define GAUSS_SEIDEL_H
 
 #include "MetodoIterativo.h"
 

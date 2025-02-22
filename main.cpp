@@ -34,17 +34,20 @@ int main() {
     cout << "\nDigite a precisão (epsilon): ";
     cin >> epsilon;
 
+    utils::printMatriz(A, "A");
+    utils::printMatrizColuna(b, "B");
+
+    if (MetodoIterativo::certainlyConverges(A, n))
+    {
+      cout << "A matriz A não passou nos critérios de convergência, ela PODE não convergir" << endl;  
+    }
+
     //criando a matriz identidade
     vector<vector<double>> identidade = utils::identidade(n);
     
     //criando os objetos dos métodos
     GaussJacobi gaussJacobi(MAX_ITER, epsilon);
     GaussSeidel gaussSeidel(MAX_ITER, epsilon);
-
-    if (MetodoIterativo::certainlyConverges(A, n))
-    {
-      cout << "A matriz A não passou nos critérios de convergência, ela PODE não convergir" << endl;  
-    }
 
     //criando as matrizes que serão as inversas
     vector<vector<double>> inversaJacobi(n, vector<double>(n));
@@ -68,8 +71,7 @@ int main() {
     vector<double> dJacobi = utils::multMatriz(inversaJacobi, b);
     vector<double> dSeidel = utils::multMatriz(inversaSeidel, b);
 
-    utils::printMatriz(A, "A");
-    utils::printMatrizColuna(b, "B");
+
     utils::printMatriz(inversaJacobi, "Inversa Jacobi");
     utils::printMatriz(inversaSeidel, "Inversa Seidel");
     utils::printMatrizColuna(dJacobi, "d Jacobi");

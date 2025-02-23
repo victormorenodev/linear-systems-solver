@@ -31,7 +31,8 @@ bool MetodoIterativo::sassenfeldCriterion(const vector<vector<double>>& A, int n
 				soma += abs(A[i][j])*multiplicadores[j];
 			}
 		}
-		if ((soma/abs(A[i][i])) >= 1) {
+		soma = soma/abs(A[i][i]);
+		if (soma >= 1) {
 			return false;
 		}
 		multiplicadores[i] = soma;

@@ -10,10 +10,10 @@ bool MetodoIterativo::lineCriterion(const vector<vector<double>>& A, int n)
 		soma = 0;
 		for (int j = 0; j < n; ++j) {
 			if (j != i) {
-				soma += A[i][j];
+				soma += abs(A[i][j]);
 			}
 		}
-		if (soma >= A[i][i]) {
+		if (soma >= abs(A[i][i])) {
 			return false;
 		}
 	}

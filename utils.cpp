@@ -49,3 +49,13 @@ void utils::printMatrizColuna(const vector<double>& matriz, const string& name){
     }
     cout << endl;
 }
+
+void utils::checkDeslocamentos(const vector<double> d, int n, const string& method){
+    for (int i = 0; i < n; i++)
+    {
+        if (d[i] > 0.4 || d[i] < -0.4)
+        {
+            cout << "d" << i << " de " << method << " passa do limite" << endl;
+        }  
+    }
+}

@@ -11,8 +11,6 @@ vector<double> GaussSeidel::solve(const vector<vector<double>>& A, const vector<
 	vector<double> x(n, 0);
 	vector<double> multiplicadores(n, 1);
 
-	cout << "Método de Gauss Seidel" << endl;
-
 	// Inicializando o vetor x^(0) com bi/aii
 	for (int i = 0; i < n; ++i) {
         x[i] = b[i] / A[i][i];

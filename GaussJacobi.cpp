@@ -9,8 +9,6 @@ vector<double> GaussJacobi::solve(const vector<vector<double>>& A, const vector<
     vector<double> x_ant(n, 0); // Iteração anterior
     vector<double> x(n, 0);     // Iteração atual
 
-    cout << "Método de Gauss Jacobi" << endl;
-
     // Inicialização x^(0)
     for (int i = 0; i < n; ++i) {
         x_ant[i] = b[i] / A[i][i];

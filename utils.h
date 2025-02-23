@@ -13,5 +13,6 @@ public:
     static vector<vector<double>> identidade(int n);
     static void printMatriz(const vector<vector<double>>& matriz, const string& name);
     static void printMatrizColuna(const vector<double>& matriz, const string& name);
+    static void checkDeslocamentos(const vector<double> d, int n, const string& method);
 };
 #endif

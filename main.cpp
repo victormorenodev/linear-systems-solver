@@ -37,7 +37,7 @@ int main() {
     utils::printMatriz(A, "A");
     utils::printMatrizColuna(b, "B");
 
-    if (MetodoIterativo::certainlyConverges(A, n))
+    if (!MetodoIterativo::certainlyConverges(A, n))
     {
       cout << "A matriz A não passou nos critérios de convergência, ela PODE não convergir" << endl;  
     }
@@ -53,10 +53,14 @@ int main() {
     vector<vector<double>> inversaJacobi(n, vector<double>(n));
     vector<vector<double>> inversaSeidel(n, vector<double>(n));
 
+    cout << "CALCULANDO A INVERSA POR JACOBI E SEIDEL" << endl;
+
     for (int i = 0; i < n; i++)
     {
         //calculando a matriz inversa coluna por coluna
+        cout << "\nCOLUNA " << i << " MÉTODO JACOBI";
         vector<double> colunaInversaJacobi = gaussJacobi.solve(A, identidade[i], n);
+        cout << "\nCOLUNA " << i << " MÉTODO SEIDEL";
         vector<double> colunaInversaSeidel = gaussSeidel.solve(A, identidade[i], n);
 
         for (int j = 0; j < n; j++)
@@ -71,9 +75,11 @@ int main() {
     vector<double> dJacobi = utils::multMatriz(inversaJacobi, b);
     vector<double> dSeidel = utils::multMatriz(inversaSeidel, b);
 
-
     utils::printMatriz(inversaJacobi, "Inversa Jacobi");
     utils::printMatriz(inversaSeidel, "Inversa Seidel");
     utils::printMatrizColuna(dJacobi, "d Jacobi");
     utils::printMatrizColuna(dSeidel, "d Seidel");
+
+    utils::checkDeslocamentos(dJacobi, n , "Jacobi");
+    utils::checkDeslocamentos(dSeidel, n , "Seidel");
 }

@@ -40,12 +40,9 @@ vector<double> GaussJacobi::solve(const vector<vector<double>>& A, const vector<
         iter++;
 
         // Exibir valores de dk
-        cout << "\nIteração " << iter << ":\n";
         for (int i = 0; i < n; ++i) {
             double dk = abs(x[i] - x_ant[i]);
-            cout << "d" << (i + 1) << " = " << dk << endl;
         }
-        cout << "Norma da diferença (drk) = " << dr_k << endl;
 
     } while (!canStop(drk(x, x_ant, n), iter));
 

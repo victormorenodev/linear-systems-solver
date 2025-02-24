@@ -53,14 +53,9 @@ int main() {
     vector<vector<double>> inversaJacobi(n, vector<double>(n));
     vector<vector<double>> inversaSeidel(n, vector<double>(n));
 
-    cout << "CALCULANDO A INVERSA POR JACOBI E SEIDEL" << endl;
-
     for (int i = 0; i < n; i++)
     {
-        //calculando a matriz inversa coluna por coluna
-        cout << "\nCOLUNA " << i << " MÉTODO JACOBI";
         vector<double> colunaInversaJacobi = gaussJacobi.solve(A, identidade[i], n);
-        cout << "\nCOLUNA " << i << " MÉTODO SEIDEL";
         vector<double> colunaInversaSeidel = gaussSeidel.solve(A, identidade[i], n);
 
         for (int j = 0; j < n; j++)
